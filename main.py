@@ -225,7 +225,7 @@ def train(train_dataset, model, tokenizer, n_epochs=2, eval_every=2500, save_eve
                 "end_positions": batch[4],
             }
 
-            # Specifique à XLNET uniquement
+
             inputs.update({"cls_index": batch[5], "p_mask": batch[6]})
             inputs.update({"is_impossible": batch[7]})
             if hasattr(model, "config") and hasattr(model.config, "lang2id"):
