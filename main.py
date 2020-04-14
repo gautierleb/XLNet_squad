@@ -35,8 +35,10 @@ def download_unzip(folder):
 
     os.unlink(os.path.join(folder, "tmp.zip"))
 
+print('Accessing dropbox...')
 if not os.path.exists('deeplearning_needed'):
     download_unzip('')
+print('Done')
 
 install('transformers')
 install('deeplearning_needed/transformers-master/examples/requirements.txt', file=True)
@@ -288,7 +290,7 @@ def train(train_dataset, model, tokenizer, n_epochs=2, eval_every=2500, save_eve
                         else:
                             t = glob.glob(os.path.join(output_dir, '*.txt'))[0]
                             os.remove(t)
-                        with open(os.path.join(output_dir, f'{global_step}.txt'), 'w') as f:
+                        with open(os.path.join(output_dir, '{}.txt'.format(global_step)), 'w') as f:
                             f.write(' ')
         if save_every == -1:
             output_dir = os.path.join(output_folder, "checkpoint-{}".format(global_step)) if w_checkpoint else output_folder
@@ -310,7 +312,7 @@ def train(train_dataset, model, tokenizer, n_epochs=2, eval_every=2500, save_eve
                 else:
                     t = glob.glob(os.path.join(output_dir, '*.txt'))[0]
                     os.remove(t)
-                with open(os.path.join(output_dir, f'{global_step}.txt'), 'w') as f:
+                with open(os.path.join(output_dir, '{}.txt'.format(global_step)), 'w') as f:
                     f.write('')
         if eval_every == -1:
             # Only evaluate when single GPU otherwise metrics may not average well
@@ -321,7 +323,7 @@ def train(train_dataset, model, tokenizer, n_epochs=2, eval_every=2500, save_eve
 #             tb_writer.add_scalar("lr", scheduler.get_last_lr()[0], global_step)
             tb_writer.add_scalar("loss", (tr_loss - logging_loss) / 500, global_step)
             logging_loss = tr_loss
-            with open(os.path.join(output_dir, f'results_{global_step}.json'), 'w') as f:
+            with open(os.path.join(output_dir, 'results_{}.json'.format(global_step)), 'w') as f:
                 json.dump(results, f)
 
     tb_writer.close()
