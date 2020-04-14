@@ -264,7 +264,7 @@ def train(train_dataset, model, tokenizer, n_epochs=2, eval_every=2500, save_eve
 #                     tb_writer.add_scalar("lr", scheduler.get_last_lr()[0], global_step)
                     tb_writer.add_scalar("loss", (tr_loss - logging_loss) / eval_every, global_step)
                     logging_loss = tr_loss
-                    with open(os.path.join(output_dir, f'results_{global_step}.json'), 'w') as f:
+                    with open(os.path.join(output_dir, 'results_{}.json'.format(global_step)), 'w') as f:
                         json.dump(results, f)
 
                 # Save model checkpoint
