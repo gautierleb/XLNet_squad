@@ -52,7 +52,7 @@ import re
 import random
 import json
 import timeit
-from tqdm.notebook import tqdm, trange
+from tqdm import tqdm, trange
 from importlib import reload
 
 import numpy as np
